@@ -300,7 +300,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 //
 // look at the comments in ../labrpc/labrpc.go for more details.
 //
-// if you're having trouble getting RPC to work, check that you've
+// if you're having trouble getting RPC to work, check 	that you've
 // capitalized all field names in structs passed over RPC, and
 // that the caller passes the address of the reply struct with &, not
 // the struct itself.
