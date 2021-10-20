@@ -9,6 +9,7 @@ package raft
 //
 
 import (
+	"log"
 	"testing"
 )
 import "fmt"
@@ -172,6 +173,7 @@ func TestRPCBytes2B(t *testing.T) {
 	bytes1 := cfg.bytesTotal()
 	got := bytes1 - bytes0
 	expected := int64(servers) * sent
+	log.Println("got:", got, "expected", expected)
 	if got > expected+50000 {
 		t.Fatalf("too many RPC bytes; got %v, expected %v", got, expected)
 	}
@@ -192,6 +194,8 @@ func TestFailAgree2B(t *testing.T) {
 	leader := cfg.checkOneLeader()
 	cfg.disconnect((leader + 1) % servers)
 
+	log.Println("disconnect", (leader+1)%servers)
+
 	// the leader and remaining follower should be
 	// able to agree despite the disconnected follower.
 	cfg.one(102, servers-1, false)
@@ -202,6 +206,8 @@ func TestFailAgree2B(t *testing.T) {
 
 	// re-connect
 	cfg.connect((leader + 1) % servers)
+
+	log.Println("reconnect", (leader+1)%servers)
 
 	// the full set of servers should preserve
 	// previous agreements, and be able to agree
